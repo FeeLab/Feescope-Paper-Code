@@ -1,5 +1,9 @@
 
 
+% constructs a series of decoders for quadrant and direction using the 64 closest
+% footprints to a given point, and plots the median accuracy of the series
+% constructed for each point.
+
 [parentdir,~,~] = fileparts(pwd);
 load(fullfile(parentdir, 'supporting_data/extract_curated.mat'));
 load(fullfile(parentdir, 'supporting_data/position_tracking.mat'));

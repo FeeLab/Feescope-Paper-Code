@@ -1,4 +1,6 @@
 
+% fits a second-order quantized gaussian model to the rois of the image
+% stack specified in wf_roi.csv
 
 images=dir('wf/beads/*.png');
 

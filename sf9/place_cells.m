@@ -1,4 +1,8 @@
 
+% plots receptive fields for a selection of footprints
+
+
+
 [parentdir,~,~] = fileparts(pwd);
 load(fullfile(parentdir, 'supporting_data/position_tracking.mat'));
 load(fullfile(parentdir, 'supporting_data/extract_curated.mat'));
@@ -187,6 +191,7 @@ end
 %}
 
 
+% selected place cells
 ifig =[363,1467,1805,1136,693,2001,1712,2331,2286,782,351,1190];
 iplot=ifig;
 

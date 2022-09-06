@@ -1,4 +1,8 @@
 
+% fits a second-order quantized gaussian model to the rois of the image
+% stack specified in feather_roi.csv
+
+
 images=dir('feather/*.png');
 
 T = struct2table(images);

@@ -16,10 +16,10 @@
 
 [parentdir,~,~] = fileparts(pwd);
 
-pos=readmatrix(fullfile(parentdir,'supporting_data/','home_pos-speed-in_2021-07-26T13_50_50.csv'),'Delimiter',' ');
+%pos=readmatrix(fullfile(parentdir,'raw_data/','home_pos-speed-in_2021-07-26T13_50_50.csv'),'Delimiter',' ');
 
-posT=readmatrix(fullfile(parentdir,'supporting_data/','home_pos-speed-in_2021-07-26T13_50_50.csv'),'Delimiter',' ','OutputType','string');
-caT=readmatrix(fullfile(parentdir,'supporting_data/','invivo_2021-07-26T13_50_50.csv'),'Delimiter',' ','OutputType','string');
+posT=readmatrix(fullfile(parentdir,'raw_data/','home_pos-speed-in_2021-07-26T13_50_50.csv'),'Delimiter',' ','OutputType','string');
+caT=readmatrix(fullfile(parentdir,'raw_data/','invivo_2021-07-26T13_50_50.csv'),'Delimiter',' ','OutputType','string');
 
 load(fullfile(parentdir, 'supporting_data/extract_output.mat'));
 T = exOut.temporal_weights;
@@ -29,7 +29,7 @@ caT = str2double(extractBetween(caT,18,23))+60*str2double(extractBetween(caT,15,
 posT = str2double(extractBetween(posT(:,1),18,23))+60*str2double(extractBetween(posT(:,1),15,16))+3600*str2double(extractBetween(posT(:,1),12,13));
 
 
-pos = pos(:,2:3);
+%pos = pos(:,2:3);
 
 
 xmin = 101;
@@ -51,7 +51,7 @@ redlim = 1600;
 
 
 
-v = VideoReader(fullfile(parentdir,'supporting_data/','home_arena_2021-07-26T13_50_50.avi'));
+v = VideoReader(fullfile(parentdir,'raw_data/','home_arena_2021-07-26T13_50_50.avi'));
 
 v.CurrentTime = 64; %start at 1'04 to remove period of experimenter futzing
 

@@ -1,4 +1,6 @@
 
+% finds the set of footprints active during specific times in the kiloscope
+% dataset and plots their locations
 
 [parentdir,~,~] = fileparts(pwd);
 load(fullfile(parentdir, 'supporting_data/extract_curated.mat'));

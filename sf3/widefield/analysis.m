@@ -1,4 +1,7 @@
 
+% calculates radial averages of illumination images and plots them
+% concurrently
+
 w = 808;
 h = 608;
 
