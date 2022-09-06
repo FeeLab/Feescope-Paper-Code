@@ -1,3 +1,4 @@
-# Microscope-Paper-Code
+# Feescope-Paper-Code
 Analysis code used to process data and generate figures in the paper "A Novel Optical Design Enabling Lightweight and Large Field-of-View Head-Mounted Microscopes" from the Fee Lab at MIT. A preprint is accessible [here](https://www.biorxiv.org/content/10.1101/2021.09.03.458947v2).
 
+Some of the analysis code relies on saved outputs from intermediate processing steps. These outputs are assumed to be located at `Feescope-Paper-Code/supporting_data`. The folder `supporting_data` is too large to upload to GitHub, but it can be downloaded from elsewhere and copied into your local version of the repository. We have posted a torrent file at [academictorrents.com](academictorrents.com) which contains `supporting_data` along with `raw_data`, the raw mouse data and raw EXTRACT output used in the paper.
