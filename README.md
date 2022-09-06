@@ -1,2 +1,3 @@
 # Microscope-Paper-Code
-Analysis code used to process data and generate figures in the paper "A Novel Optical Design Enabling Lightweight and Large Field-of-View Head-Mounted Microscopes" from the Fee Lab at MIT.
+Analysis code used to process data and generate figures in the paper "A Novel Optical Design Enabling Lightweight and Large Field-of-View Head-Mounted Microscopes" from the Fee Lab at MIT. A preprint is accessible [here](https://www.biorxiv.org/content/10.1101/2021.09.03.458947v2).
+
