@@ -44,7 +44,7 @@ v = VideoReader(fullfile(parentdir,'raw_data/','home_arena_2021-07-26T13_50_50.a
 addpath('matnwb');
 generateCore();
 
-% The full path to the NWB file
+% Specify the full path to the NWB file
 nwbfile_path = '.../ophys_2021-07-26T13_50_50.nwb';
 % Use the nwbRead() function to load the NWB file.
 nwbfile = nwbRead(nwbfile_path);
@@ -61,8 +61,7 @@ caT = nwbfile.acquisition.get('TwoPhotonSeries').timestamps.load;
 % Access the timestamps from the behavioral tracking video
 posT = nwbfile.acquisition.get('Video: home_arena_2021-07-26T13_50_50').timestamps.load;
 % The timestamps are adjusted to the imaging timestamps, i.e. the first
-% timestamp in posT corresponds to caT(1) - posT(1) given the previous
-% variables defined in Approach 1.
+% timestamp in posT corresponds to caT(1) - posT(1) given the previous variables defined in Approach 1.
 
 % Access the container for temporal weights
 df_over_f = nwbfile.processing.get('ophys').nwbdatainterface.get('DfOverF');
