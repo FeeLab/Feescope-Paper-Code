@@ -13,10 +13,11 @@
 % octant: current octant occupied by mouse (sfig 8)
 % iT: extracted neural activity, truncated to overlap with behavioral data
 
-
+%% Approach 1. Data accessed from original files
 [parentdir,~,~] = fileparts(pwd);
 
 %pos=readmatrix(fullfile(parentdir,'raw_data/','home_pos-speed-in_2021-07-26T13_50_50.csv'),'Delimiter',' ');
+%pos = pos(:,2:3);
 
 posT=readmatrix(fullfile(parentdir,'raw_data/','home_pos-speed-in_2021-07-26T13_50_50.csv'),'Delimiter',' ','OutputType','string');
 caT=readmatrix(fullfile(parentdir,'raw_data/','invivo_2021-07-26T13_50_50.csv'),'Delimiter',' ','OutputType','string');
@@ -28,9 +29,52 @@ T = exOut.temporal_weights;
 caT = str2double(extractBetween(caT,18,23))+60*str2double(extractBetween(caT,15,16))+3600*str2double(extractBetween(caT,12,13));
 posT = str2double(extractBetween(posT(:,1),18,23))+60*str2double(extractBetween(posT(:,1),15,16))+3600*str2double(extractBetween(posT(:,1),12,13));
 
+v = VideoReader(fullfile(parentdir,'raw_data/','home_arena_2021-07-26T13_50_50.avi'));
 
-%pos = pos(:,2:3);
+%% Approach 2. Data accessed from NWB File
 
+% *MatNWB Setup*
+% Start by setting up your MATLAB workspace. The code below clones the
+% MatNWB repo to the current directory and adds the folder ontaining the
+% MatNWB package to the MATLAB search path. MatNWB works by automatically
+% creating API classes based on a defined schema. Running the generateCore() function
+% generates these classes for the lastest schema version.
+
+!git clone https://github.com/NeurodataWithoutBorders/matnwb.git
+addpath('matnwb');
+generateCore();
+
+% Specify the full path to the NWB file
+nwbfile_path = '.../ophys_2021-07-26T13_50_50.nwb';
+% Use the nwbRead() function to load the NWB file.
+nwbfile = nwbRead(nwbfile_path);
+
+% The timestamps that are stored in NWB files are relative to the start
+% time of the session and are in the unit of seconds.
+% You can view the session start time by accessing the session_start_time
+% attribute in nwbfile as:
+% nwbfile.session_start_time
+
+% Access the timestamps from the calcium imaging
+caT = nwbfile.acquisition.get('TwoPhotonSeries').timestamps.load;
+
+% Access the timestamps from the behavioral tracking video
+posT = nwbfile.acquisition.get('Video: home_arena_2021-07-26T13_50_50').timestamps.load;
+% The timestamps are adjusted to the imaging timestamps, i.e. the first
+% timestamp in posT corresponds to caT(1) - posT(1) given the previous variables defined in Approach 1.
+
+% Access the container for temporal weights
+df_over_f = nwbfile.processing.get('ophys').nwbdatainterface.get('DfOverF');
+% Access the temporal weights; when reading in MATLAB the first dimension is
+% the number of cells, and second dimension is time.
+T = df_over_f.roiresponseseries.get('RoiResponseSeries').data.load;
+% To have the second dimension correspond to the number of cells, you can use transpose:
+T = transpose(T);
+
+% Access the filepath to the behavioral tracking video
+v = VideoReader(nwbfile.acquisition.get('Video: home_arena_2021-07-26T13_50_50').external_file.load);
+
+%%
 
 xmin = 101;
 xmax = 378;
@@ -48,10 +92,6 @@ red(1) = 0;
 red(2) = 3;
 red(3) = 4;
 redlim = 1600;
-
-
-
-v = VideoReader(fullfile(parentdir,'raw_data/','home_arena_2021-07-26T13_50_50.avi'));
 
 v.CurrentTime = 64; %start at 1'04 to remove period of experimenter futzing
 
